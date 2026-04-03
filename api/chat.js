@@ -179,41 +179,40 @@ export default async function handler(request) {
   }
 
   // ── Check API key ───────────────────────────────────────────────
-  const apiKey = process.env.GOOGLE_API_KEY;
+  const apiKey = process.env.OPENROUTER_API_KEY;
   if (!apiKey) {
-    console.error('GOOGLE_API_KEY is not set');
+    console.error('OPENROUTER_API_KEY is not set');
     return json({ error: 'Server configuration error' }, 500, corsHeaders);
   }
 
-  // ── Call Google Gemini API ───────────────────────────────────────
-  // Map 'assistant' → 'model' (Gemini's role name for the AI).
-  const geminiContents = messages.map(m => ({
-    role: m.role === 'assistant' ? 'model' : 'user',
-    parts: [{ text: m.content }],
-  }));
+  // ── Call OpenRouter API (OpenAI-compatible) ──────────────────────
+  const openRouterMessages = [
+    { role: 'system', content: SYSTEM_PROMPT },
+    ...messages,
+  ];
 
   try {
-    const geminiRes = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key=${apiKey}`,
-      {
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({
-          system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
-          contents: geminiContents,
-          generationConfig: { maxOutputTokens: 512 },
-        }),
-      }
-    );
+    const orRes = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        model: 'nvidia/nemotron-3-super-120b-a12b:free',
+        messages: openRouterMessages,
+        max_tokens: 512,
+      }),
+    });
 
-    if (!geminiRes.ok) {
-      const errText = await geminiRes.text();
-      console.error('Gemini API error:', geminiRes.status, errText);
+    if (!orRes.ok) {
+      const errText = await orRes.text();
+      console.error('OpenRouter API error:', orRes.status, errText);
       return json({ error: 'AI service temporarily unavailable' }, 502, corsHeaders);
     }
 
-    const data = await geminiRes.json();
-    const reply = data.candidates?.[0]?.content?.parts?.[0]?.text ?? '';
+    const data = await orRes.json();
+    const reply = data.choices?.[0]?.message?.content ?? '';
 
     return json({ reply }, 200, corsHeaders);
 
