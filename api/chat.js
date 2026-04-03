@@ -209,7 +209,7 @@ export default async function handler(request) {
     if (!geminiRes.ok) {
       const errText = await geminiRes.text();
       console.error('Gemini API error:', geminiRes.status, errText);
-      return json({ error: errText.slice(0, 300) }, 502, corsHeaders);
+      return json({ error: 'AI service temporarily unavailable' }, 502, corsHeaders);
     }
 
     const data = await geminiRes.json();
