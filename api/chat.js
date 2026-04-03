@@ -138,7 +138,18 @@ function json(data, status = 200, corsHeaders = {}) {
   });
 }
 
+export async function listModels(apiKey) {
+  const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}`);
+  return r.json();
+}
+
 export default async function handler(request) {
+  // ── DEBUG: list models ──────────────────────────────────────────
+  if (request.method === 'GET') {
+    const apiKey = process.env.GOOGLE_API_KEY || '';
+    const result = await (await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}`)).json();
+    return new Response(JSON.stringify(result), { status: 200, headers: { 'Content-Type': 'application/json' } });
+  }
   const origin = request.headers.get('origin') || '';
   const corsHeaders = getCorsHeaders(origin);
 
