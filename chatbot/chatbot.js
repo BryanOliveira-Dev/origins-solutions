@@ -171,7 +171,10 @@ async function fetchReply() {
       body: JSON.stringify({ messages }),
     });
 
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    if (!res.ok) {
+      const errData = await res.json().catch(() => ({}));
+      throw new Error(`HTTP ${res.status}: ${errData.error || 'unknown'}`);
+    }
     const data = await res.json();
     const reply = data.reply || "I'm having trouble responding right now. Please try again or reach out at byan.oliveira.bgo@gmail.com";
 
@@ -183,8 +186,8 @@ async function fetchReply() {
 
   } catch (_err) {
     typingEl.remove();
-    const fallback = "I'm having trouble connecting right now. Please reach out directly at **byan.oliveira.bgo@gmail.com** or use the contact form.";
-    appendBotMessage(fallback, true);
+    const fallback = `DEBUG: ${_err.message}`;
+    appendBotMessage(fallback, false);
   } finally {
     isTyping = false;
     $send.disabled = false;
