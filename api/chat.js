@@ -199,7 +199,7 @@ export default async function handler(request) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'nvidia/nemotron-3-super-120b-a12b:free',
+        model: 'meta-llama/llama-3.1-8b-instruct:free',
         messages: openRouterMessages,
         max_tokens: 512,
       }),
