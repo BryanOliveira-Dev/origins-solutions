@@ -179,37 +179,41 @@ export default async function handler(request) {
   }
 
   // ── Check API key ───────────────────────────────────────────────
-  const apiKey = process.env.ANTHROPIC_API_KEY;
+  const apiKey = process.env.GOOGLE_API_KEY;
   if (!apiKey) {
-    console.error('ANTHROPIC_API_KEY is not set');
+    console.error('GOOGLE_API_KEY is not set');
     return json({ error: 'Server configuration error' }, 500, corsHeaders);
   }
 
-  // ── Call Anthropic Messages API ─────────────────────────────────
-  try {
-    const anthropicRes = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'x-api-key': apiKey,
-        'anthropic-version': '2023-06-01',
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify({
-        model: 'claude-haiku-4-5-20251001',
-        max_tokens: 512,
-        system: SYSTEM_PROMPT,
-        messages,
-      }),
-    });
+  // ── Call Google Gemini API ───────────────────────────────────────
+  // Map 'assistant' → 'model' (Gemini's role name for the AI)
+  const geminiContents = messages.map(m => ({
+    role: m.role === 'assistant' ? 'model' : 'user',
+    parts: [{ text: m.content }],
+  }));
 
-    if (!anthropicRes.ok) {
-      const errText = await anthropicRes.text();
-      console.error('Anthropic API error:', anthropicRes.status, errText);
+  try {
+    const geminiRes = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
+      {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
+          contents: geminiContents,
+          generationConfig: { maxOutputTokens: 512 },
+        }),
+      }
+    );
+
+    if (!geminiRes.ok) {
+      const errText = await geminiRes.text();
+      console.error('Gemini API error:', geminiRes.status, errText);
       return json({ error: 'AI service temporarily unavailable' }, 502, corsHeaders);
     }
 
-    const data = await anthropicRes.json();
-    const reply = data.content?.[0]?.text ?? '';
+    const data = await geminiRes.json();
+    const reply = data.candidates?.[0]?.content?.parts?.[0]?.text ?? '';
 
     return json({ reply }, 200, corsHeaders);
 
