@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+
+# Environment variables — never commit secrets
+.env
+.env.local
+.env*.local
+
+# Vercel
+.vercel/
+
+# Claude / AI tooling
+.claude-flow/
+.swarm/
+.antigravity/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
