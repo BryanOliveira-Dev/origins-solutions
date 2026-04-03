@@ -138,18 +138,7 @@ function json(data, status = 200, corsHeaders = {}) {
   });
 }
 
-export async function listModels(apiKey) {
-  const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}`);
-  return r.json();
-}
-
 export default async function handler(request) {
-  // ── DEBUG: list models ──────────────────────────────────────────
-  if (request.method === 'GET') {
-    const apiKey = process.env.GOOGLE_API_KEY || '';
-    const result = await (await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}`)).json();
-    return new Response(JSON.stringify(result), { status: 200, headers: { 'Content-Type': 'application/json' } });
-  }
   const origin = request.headers.get('origin') || '';
   const corsHeaders = getCorsHeaders(origin);
 
@@ -198,21 +187,19 @@ export default async function handler(request) {
 
   // ── Call Google Gemini API ───────────────────────────────────────
   // Map 'assistant' → 'model' (Gemini's role name for the AI).
-  // Inject system prompt into the first user message (v1 doesn't support system_instruction).
-  const geminiContents = messages.map((m, i) => ({
+  const geminiContents = messages.map(m => ({
     role: m.role === 'assistant' ? 'model' : 'user',
-    parts: [{ text: i === 0 && m.role === 'user'
-      ? `${SYSTEM_PROMPT}\n\n---\n\nUser message: ${m.content}`
-      : m.content }],
+    parts: [{ text: m.content }],
   }));
 
   try {
     const geminiRes = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
       {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({
+          system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
           contents: geminiContents,
           generationConfig: { maxOutputTokens: 512 },
         }),
@@ -222,7 +209,7 @@ export default async function handler(request) {
     if (!geminiRes.ok) {
       const errText = await geminiRes.text();
       console.error('Gemini API error:', geminiRes.status, errText);
-      return json({ error: errText }, 502, corsHeaders);
+      return json({ error: 'AI service temporarily unavailable' }, 502, corsHeaders);
     }
 
     const data = await geminiRes.json();
