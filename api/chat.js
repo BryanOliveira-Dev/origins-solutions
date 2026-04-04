@@ -199,7 +199,7 @@ export default async function handler(request) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'meta-llama/llama-3.1-8b-instruct:free',
+        model: 'google/gemma-2-9b-it:free',
         messages: openRouterMessages,
         max_tokens: 512,
       }),
