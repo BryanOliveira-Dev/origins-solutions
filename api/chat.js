@@ -179,39 +179,39 @@ export default async function handler(request) {
   }
 
   // ── Check API key ───────────────────────────────────────────────
-  const apiKey = process.env.OPENROUTER_API_KEY;
+  const apiKey = process.env.GROQ_API_KEY;
   if (!apiKey) {
-    console.error('OPENROUTER_API_KEY is not set');
+    console.error('GROQ_API_KEY is not set');
     return json({ error: 'Server configuration error' }, 500, corsHeaders);
   }
 
-  // ── Call OpenRouter API (OpenAI-compatible) ──────────────────────
-  const openRouterMessages = [
+  // ── Call Groq API (OpenAI-compatible) ────────────────────────────
+  const groqMessages = [
     { role: 'system', content: SYSTEM_PROMPT },
     ...messages,
   ];
 
   try {
-    const orRes = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+    const groqRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${apiKey}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'google/gemma-2-9b-it:free',
-        messages: openRouterMessages,
+        model: 'llama-3.1-8b-instant',
+        messages: groqMessages,
         max_tokens: 512,
       }),
     });
 
-    if (!orRes.ok) {
-      const errText = await orRes.text();
-      console.error('OpenRouter API error:', orRes.status, errText);
+    if (!groqRes.ok) {
+      const errText = await groqRes.text();
+      console.error('Groq API error:', groqRes.status, errText);
       return json({ error: 'AI service temporarily unavailable' }, 502, corsHeaders);
     }
 
-    const data = await orRes.json();
+    const data = await groqRes.json();
     const reply = data.choices?.[0]?.message?.content ?? '';
 
     return json({ reply }, 200, corsHeaders);
