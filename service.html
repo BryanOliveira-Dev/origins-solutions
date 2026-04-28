@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Explore Origins Solutions services — high-converting websites, AI automations, and strategic consulting built to scale your business." />
+  <meta name="theme-color" content="#0C0C0C" />
+  <meta property="og:title" content="Origins Solutions — Services" />
+  <meta property="og:description" content="High-converting websites, AI automations, and strategic consulting." />
+  <meta property="og:type" content="website" />
+  <title>Origins Solutions — Service Detail</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="chatbot/chatbot.css" />
+  <style>
+    :root {
+      --gold: #D4AF37;
+      --gold-light: #F0D060;
+      --gold-dark: #A8841A;
+      --black: #0C0C0C;
+      --dark: #111111;
+      --dark-grey: #1A1A1A;
+      --card-bg: #161616;
+      --border: rgba(212, 175, 55, 0.18);
+      --text: #E8E8E8;
+      --muted: #888888;
+      --white: #FFFFFF;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--black);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 10px; }
+    ::-webkit-scrollbar-track { background: var(--dark); }
+
+    /* ─── NAVBAR ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 6%;
+      background: rgba(12, 12, 12, 0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .nav-logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.15;
+    }
+
+    .nav-logo-text .logotype-main {
+      font-size: 19px;
+      font-weight: 900;
+      letter-spacing: 3px;
+      color: var(--white);
+    }
+
+    .nav-logo-text .logotype-main .gold-accent { color: var(--gold); }
+
+    .nav-logo-text .logotype-tag {
+      font-size: 8px;
+      font-weight: 600;
+      letter-spacing: 3.5px;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:not(.btn-nav):hover { color: var(--gold); }
+
+    .btn-nav {
+      padding: 10px 22px;
+      border: 1px solid var(--gold);
+      color: var(--gold) !important;
+      font-size: 12px !important;
+      font-weight: 700 !important;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: background 0.2s, color 0.2s !important;
+    }
+
+    .btn-nav:hover {
+      background: var(--gold) !important;
+      color: var(--black) !important;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--white);
+      transition: all 0.3s;
+    }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 64px; left: 0; right: 0;
+      background: rgba(12, 12, 12, 0.97);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 24px 6%;
+      z-index: 999;
+    }
+
+    .mobile-menu.open { display: block; }
+
+    .mobile-menu ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .mobile-menu ul li a {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    /* ─── PAGE HEADER ─── */
+    .page-header {
+      padding: 140px 6% 72px;
+      background: var(--dark);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 40px;
+      transition: color 0.2s;
+    }
+
+    .back-link:hover { color: var(--gold); }
+
+    .back-link::before {
+      content: '←';
+      font-size: 14px;
+    }
+
+    .page-header-inner {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: start;
+      gap: 48px;
+    }
+
+    .page-header-icon {
+      font-size: 52px;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .page-header-tag {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    .page-header-title {
+      font-size: clamp(28px, 3.5vw, 48px);
+      font-weight: 900;
+      line-height: 1.1;
+      color: var(--white);
+      letter-spacing: -0.5px;
+      margin-bottom: 20px;
+    }
+
+    .page-header-desc {
+      font-size: 16px;
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 600px;
+    }
+
+    .page-header-cta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    /* ─── BUTTONS ─── */
+    .btn-primary {
+      display: inline-block;
+      padding: 16px 32px;
+      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+      color: var(--black);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      transition: opacity 0.2s, transform 0.2s;
+      white-space: nowrap;
+    }
+
+    .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+
+    .btn-outline {
+      display: inline-block;
+      padding: 15px 32px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: border-color 0.2s, color 0.2s;
+      white-space: nowrap;
+    }
+
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* ─── CONTENT SECTIONS ─── */
+    .service-content {
+      padding: 80px 6%;
+      background: var(--black);
+    }
+
+    .service-sections {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-bottom: 64px;
+    }
+
+    .service-section-block {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 40px 36px;
+      position: relative;
+    }
+
+    .service-section-block::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+
+    .section-block-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    .section-block-text {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.85;
+    }
+
+    .section-block-features {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .section-block-feature {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .section-block-feature::before {
+      content: '';
+      display: block;
+      width: 6px;
+      height: 6px;
+      background: var(--gold);
+      margin-top: 6px;
+      flex-shrink: 0;
+    }
+
+    /* ─── TARGET BLOCK ─── */
+    .target-block {
+      background: rgba(212, 175, 55, 0.05);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-left: 3px solid var(--gold);
+      padding: 24px 28px;
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 72px;
+    }
+
+    .target-block strong {
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    /* ─── BOTTOM CTA ─── */
+    .service-cta {
+      text-align: center;
+      padding: 72px 6%;
+      background: var(--dark);
+      border-top: 1px solid var(--border);
+    }
+
+    .service-cta .section-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    .service-cta h2 {
+      font-size: clamp(24px, 3vw, 38px);
+      font-weight: 900;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+
+    .service-cta h2 .gold-text {
+      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .service-cta p {
+      font-size: 15px;
+      color: var(--muted);
+      margin-bottom: 36px;
+      line-height: 1.7;
+    }
+
+    .service-cta-buttons {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--dark);
+      border-top: 1px solid var(--border);
+      padding: 64px 6% 32px;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+
+    .footer-brand p {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-top: 16px;
+      max-width: 280px;
+    }
+
+    .footer-logotype {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+    }
+
+    .footer-logotype-main {
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: 3px;
+      color: var(--white);
+    }
+
+    .footer-logotype-main .gold-accent { color: var(--gold); }
+
+    .footer-logotype-tag {
+      font-size: 8px;
+      font-weight: 600;
+      letter-spacing: 3.5px;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    .footer-col h5 {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer-col ul li a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .footer-col ul li a:hover { color: var(--gold); }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-bottom p {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .footer-bottom p span { color: var(--gold); }
+
+    .footer-socials { display: flex; gap: 12px; }
+
+    .social-link {
+      width: 36px; height: 36px;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 700;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .social-link:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* ─── NOT FOUND ─── */
+    .not-found {
+      padding: 160px 6% 80px;
+      text-align: center;
+    }
+
+    .not-found h1 {
+      font-size: 48px;
+      font-weight: 900;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+
+    .not-found p {
+      font-size: 16px;
+      color: var(--muted);
+      margin-bottom: 32px;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1024px) {
+      .page-header-inner { grid-template-columns: 1fr; }
+      .page-header-cta { flex-direction: row; align-items: center; }
+      .service-sections { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 16px 5%; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .page-header { padding: 110px 5% 56px; }
+      .service-content { padding: 56px 5%; }
+      .service-cta { padding: 56px 5%; }
+      footer { padding: 48px 5% 24px; }
+      .footer-top { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; gap: 16px; }
+    }
+    :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-text">
+        <span class="logotype-main">ORIGINS <span class="gold-accent">SOLUTIONS</span></span>
+        <span class="logotype-tag">WHERE GROWTH BEGINS</span>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html#services">Services</a></li>
+      <li><a href="index.html#how-it-works">How It Works</a></li>
+      <li><a href="index.html#results">Results</a></li>
+      <li><a href="index.html#faq">FAQ</a></li>
+      <li><a href="contact.html" class="btn-nav">Get Started</a></li>
+    </ul>
+    <div class="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li><a href="index.html#services" onclick="toggleMenu()">Services</a></li>
+      <li><a href="index.html#how-it-works" onclick="toggleMenu()">How It Works</a></li>
+      <li><a href="index.html#results" onclick="toggleMenu()">Results</a></li>
+      <li><a href="index.html#faq" onclick="toggleMenu()">FAQ</a></li>
+      <li><a href="contact.html">Get Started</a></li>
+    </ul>
+  </div>
+
+  <!-- Content injected by JS -->
+  <div id="page-root"></div>
+
+  <!-- ─── FOOTER ─── -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logotype">
+          <span class="footer-logotype-main">ORIGINS <span class="gold-accent">SOLUTIONS</span></span>
+          <span class="footer-logotype-tag">WHERE GROWTH BEGINS</span>
+        </div>
+        <p>A results-driven agency helping businesses grow through modern websites, intelligent automations, and strategic consulting.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Services</h5>
+        <ul>
+          <li><a href="index.html#services">Website Development</a></li>
+          <li><a href="index.html#services">AI Agents</a></li>
+          <li><a href="index.html#services">Automations</a></li>
+          <li><a href="index.html#services">Consulting</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <ul>
+          <li><a href="index.html#how-it-works">How It Works</a></li>
+          <li><a href="index.html#results">Results</a></li>
+          <li><a href="index.html#faq">FAQ</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Contact</h5>
+        <ul>
+          <li><a href="mailto:byan.oliveira.bgo@gmail.com">byan.oliveira.bgo@gmail.com</a></li>
+          <li><a href="contact.html">Book a Call</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 <span>Origins Solutions</span>. All rights reserved. Where Growth Begins.</p>
+      <div class="footer-socials">
+        <a href="#" class="social-link" title="LinkedIn">in</a>
+        <a href="#" class="social-link" title="Instagram">ig</a>
+        <a href="#" class="social-link" title="Twitter/X">𝕏</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ─── DATA ───────────────────────────────────────────────────────
+    const SERVICE_DATA = {
+
+      'svc-website': {
+        tag: 'Core Service',
+        title: 'Website Creation',
+        desc: 'Your website is your business\'s first impression. We build it from scratch — designed to look professional, load fast, and turn visitors into clients who call or book an appointment.',
+        sections: [
+          { label: 'What\'s Included', type: 'features', items: [
+            'Professional design tailored to your brand and industry',
+            'Works perfectly on phones, tablets, and desktops',
+            'Built to get visitors to contact you — not just browse',
+            'Contact forms and lead capture ready from day one',
+            'SEO-ready structure to help clients find you on Google',
+            'Delivered ready to publish — no technical knowledge required',
+          ]},
+          { label: 'Why It Matters', type: 'text', text: 'Most clients check your website before they call. If it looks outdated or is hard to navigate, they move on. A well-built site builds trust immediately and works for your business around the clock — turning traffic into real inquiries without any ongoing effort on your part.' },
+        ],
+        target: 'Right for: any business that needs a strong online presence or wants to replace an outdated website.',
+      },
+
+      'svc-call': {
+        tag: 'Automation',
+        title: 'Call Answering System',
+        desc: 'Every missed call is a potential client calling your competitor instead. This system answers your phone automatically, greets callers, and saves their information — even on evenings and weekends.',
+        sections: [
+          { label: 'How It Works', type: 'text', text: 'The moment a call comes in, the system answers with a professional greeting. It walks the caller through a short set of questions, captures their name, number, and reason for calling, and handles common questions on your behalf. For anything that needs a real person, it sends you a notification right away with all the caller\'s details.' },
+          { label: 'Business Value', type: 'features', items: [
+            'Every missed call is a missed client — this eliminates that',
+            'Handles calls outside business hours without extra staff',
+            'Captures caller information accurately every time',
+            'You only get notified for calls that actually need your attention',
+          ]},
+        ],
+        target: 'Right for: dental clinics, contractors, service businesses, and any operation with high call volume.',
+      },
+
+      'svc-qualify': {
+        tag: 'Automation',
+        title: 'Lead Qualification',
+        desc: 'Not every inquiry is worth your time. This system asks the right questions automatically when someone reaches out — so you know exactly which leads are worth a call before you pick up the phone.',
+        sections: [
+          { label: 'How It Works', type: 'text', text: 'When a new lead comes in through any channel — form, call, or message — the system collects key information and evaluates them based on your criteria. Things like location, budget range, service type, and timeline. Leads that are a strong fit get routed to your team immediately. The rest receive a polite response and are filtered out of your follow-up queue.' },
+          { label: 'Business Value', type: 'features', items: [
+            'Your team only spends time on leads actually worth pursuing',
+            'Reduces wasted calls and meetings with the wrong contacts',
+            'Faster response to the leads that matter most',
+            'Works around the clock — no lead waits for a weekday',
+          ]},
+        ],
+        target: 'Right for: businesses receiving a high volume of inquiries who need to prioritize quickly.',
+      },
+
+      'svc-schedule': {
+        tag: 'Automation',
+        title: 'Smart Scheduling',
+        desc: 'Clients see your available times and book directly — no calls, no texts, no back-and-forth. A confirmation goes out instantly, and a reminder is sent before the appointment to keep no-shows low.',
+        sections: [
+          { label: 'How It Works', type: 'text', text: 'Clients visit a simple booking page, see your real-time availability, and pick a time that works for them. The system sends a confirmation immediately and a reminder the day before the appointment. If they need to reschedule, they can do it themselves through the same link — no phone call needed on your end.' },
+          { label: 'Business Value', type: 'features', items: [
+            'Eliminates the back-and-forth of booking appointments manually',
+            'Automatic reminders cut no-shows significantly',
+            'Clients can book at any hour — even outside business hours',
+            'Frees your front desk for higher-value tasks',
+          ]},
+        ],
+        target: 'Right for: clinics, consultants, contractors, and any business that runs on appointments.',
+      },
+
+      'svc-crm': {
+        tag: 'Automation',
+        title: 'CRM Integration',
+        desc: 'When your leads come from different places — website, phone, email, WhatsApp — information gets scattered. We connect everything into one system so your team always knows who they are talking to and what happened before.',
+        sections: [
+          { label: 'How It Works', type: 'text', text: 'Every time a new contact comes in — from a form submission, a call, a WhatsApp message, or an email — the system creates or updates their record automatically. Your team sees the full picture on every lead: where they came from, every conversation, and what the next step is. All in one place.' },
+          { label: 'Business Value', type: 'features', items: [
+            'No more contacts scattered across different apps and spreadsheets',
+            'Your team has full context before every call or meeting',
+            'Nothing falls through the cracks between tools',
+            'Connects with the software you already use',
+          ]},
+        ],
+        target: 'Right for: businesses using multiple tools that are not talking to each other.',
+      },
+
+      'svc-followup': {
+        tag: 'Automation',
+        title: 'Follow-Ups & Reminders',
+        desc: 'Most businesses lose clients simply by not following up. This system sends the right message at the right time — reminders before appointments, check-ins after visits, and re-engagement when a contact goes quiet — all on its own.',
+        sections: [
+          { label: 'How It Works', type: 'text', text: 'The system triggers messages based on events in your business. Before an appointment: the client gets a reminder. After a visit: a follow-up message goes out. If a lead has not responded in a while: a re-engagement message is sent. You set the rules once and it runs continuously from that point forward.' },
+          { label: 'Business Value', type: 'features', items: [
+            'Appointment reminders reduce no-shows without any manual work',
+            'Follow-ups keep clients coming back after their first visit',
+            'Re-engagement messages recover contacts that went cold',
+            'Sends via SMS, email, or WhatsApp — wherever your clients are',
+          ]},
+        ],
+        target: 'Right for: any business where no-shows, repeat visits, or consistent follow-through are important.',
+      },
+
+      'svc-capture': {
+        tag: 'Automation',
+        title: 'Multichannel Capture',
+        desc: 'Clients find you through different channels — your website, Google, Instagram, WhatsApp. This system captures every single inquiry regardless of where it comes from and puts it all in one place so nothing gets missed.',
+        sections: [
+          { label: 'How It Works', type: 'text', text: 'We connect every channel your clients use to reach you. When someone sends a WhatsApp message, fills out a form, messages you on Instagram, or calls your number, the system captures their information and routes it into your pipeline automatically. Every channel is covered. Every inquiry gets a response.' },
+          { label: 'Business Value', type: 'features', items: [
+            'Every channel your clients use is covered',
+            'No lead goes unanswered regardless of how they contacted you',
+            'All incoming contacts land in one organized inbox',
+            'Responds instantly so leads do not go elsewhere while waiting',
+          ]},
+        ],
+        target: 'Right for: businesses active on multiple platforms who are losing leads between channels.',
+      },
+
+      'svc-leadgen': {
+        tag: 'Automation',
+        title: 'Lead Generation',
+        desc: 'Instead of waiting for referrals, this system actively reaches out to people who match your ideal client profile and starts the conversation — bringing new prospects into your pipeline on a consistent basis.',
+        sections: [
+          { label: 'How It Works', type: 'text', text: 'We build and run targeted outreach campaigns designed to reach the type of client you want most. The system identifies prospects that fit your criteria, reaches out through the right channels, and starts the conversation — delivering qualified contacts into your pipeline every week without you lifting a finger.' },
+          { label: 'Business Value', type: 'features', items: [
+            'New prospects entering your pipeline every week',
+            'Targets the exact type of client you are looking for',
+            'Works alongside your existing referral and marketing channels',
+            'Consistent lead flow instead of waiting for word of mouth',
+          ]},
+        ],
+        target: 'Right for: businesses looking to grow beyond referrals and establish a consistent source of new clients.',
+      },
+    };
+
+    // ─── RENDER PAGE ────────────────────────────────────────────────
+    function render() {
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get('id');
+      const data = SERVICE_DATA[id];
+      const root = document.getElementById('page-root');
+
+      if (!data) {
+        root.innerHTML = `
+          <div class="not-found">
+            <h1>Page Not Found</h1>
+            <p>We couldn't find the service you're looking for.</p>
+            <a href="index.html#services" class="btn-primary">View All Services</a>
+          </div>`;
+        document.title = 'Origins Solutions — Not Found';
+        return;
+      }
+
+      document.title = `Origins Solutions — ${data.title}`;
+
+      // Build sections HTML
+      let sectionsHTML = '';
+      data.sections.forEach(s => {
+        let bodyHTML = '';
+        if (s.type === 'text') {
+          bodyHTML = `<p class="section-block-text">${s.text}</p>`;
+        } else {
+          bodyHTML = `<div class="section-block-features">` +
+            s.items.map(item => `<div class="section-block-feature">${item}</div>`).join('') +
+            `</div>`;
+        }
+        sectionsHTML += `
+          <div class="service-section-block">
+            <div class="section-block-label">${s.label}</div>
+            ${bodyHTML}
+          </div>`;
+      });
+
+      root.innerHTML = `
+        <div class="page-header">
+          <a href="index.html#services" class="back-link">Back to Services</a>
+          <div class="page-header-inner">
+            <div class="page-header-left">
+              <div class="page-header-tag">${data.tag}</div>
+              <h1 class="page-header-title">${data.title}</h1>
+              <p class="page-header-desc">${data.desc}</p>
+            </div>
+            <div class="page-header-cta">
+              <a href="contact.html" class="btn-primary">Get Started — It's Free</a>
+              <a href="index.html#services" class="btn-outline">All Services</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="service-content">
+          <div class="service-sections">${sectionsHTML}</div>
+          ${data.target ? `<div class="target-block"><strong>Best fit —</strong> ${data.target}</div>` : ''}
+        </div>
+
+        <div class="service-cta">
+          <div class="section-label">Ready to Get Started?</div>
+          <h2>Let's Build This <span class="gold-text">For Your Business</span></h2>
+          <p>Book a free 30-minute strategy call — we'll map out exactly how this solution applies to your specific situation.</p>
+          <div class="service-cta-buttons">
+            <a href="contact.html" class="btn-primary">Book a Free Call</a>
+            <a href="index.html#services" class="btn-outline">Explore Other Services</a>
+          </div>
+        </div>`;
+    }
+
+    // ─── MOBILE MENU ────────────────────────────────────────────────
+    function toggleMenu() {
+      document.getElementById('mobileMenu').classList.toggle('open');
+    }
+
+    render();
+  </script>
+  <script type="module" src="chatbot/chatbot.js"></script>
+</body>
+</html>
